@@ -13,9 +13,13 @@
 
         try {
             $connection = new PDO($dsn, $username, $password, $options);
-            $sql = "SELECT * 
-                FROM station
-                WHERE scity = :city_name";
+            $sql = "SELECT s.sid AS id, s.scity AS city, m.mtemp AS temperature, m.mhumid AS humidity, m.mpriecip AS precipitation
+            FROM station AS s, measurement AS m,
+                (SELECT s.sid, MAX(mtimestamp)AS recent
+                FROM station AS s, measurement AS m
+                WHERE s.sid = m.sid
+                GROUP BY sid) AS r
+            WHERE s.sid = r.sid AND m.sid = r.sid AND m.mtimestamp = r.recent AND s.scity = :city_name";
             $city_name = $_POST['city-name'];
             echo $city_name;
             print_r($_POST);
@@ -30,26 +34,26 @@
                     <thead>
                         <tr>
                             <th>Station ID</th>
-                            <th>City Name</th>
-                            <th>State</th>
-                            <th>Latitude</th>
-                            <th>Longitude</th>
+                            <th>City</th>
+                            <th>Temperature</th>
+                            <th>Humidity</th>
+                            <th>Precipitation</th>
                         </tr>
                     </thead>
                     <tbody>
-                <?php foreach ($result as $row) { ?>
-                    <tr>
-                        <td><?php echo $row["sid"]; ?></td>
-                        <td><?php echo $row["scity"]; ?></td>
-                        <td><?php echo $row["sstate"]; ?></td>
-                        <td><?php echo $row["slatitude"]; ?></td>
-                        <td><?php echo $row["slongitude"]; ?></td>
-                    </tr>
+                        <?php foreach ($result as $row) { ?>
+                        <tr>
+                            <td><?php echo $row["id"]; ?></td>
+                            <td><?php echo $row["city"]; ?></td>
+                            <td><?php echo $row["temperature"]; ?></td>
+                            <td><?php echo $row["humidity"]; ?></td>
+                            <td><?php echo $row["precipitation"]; ?></td>
+                        </tr>
                 <?php } ?>
                 </tbody>
             </table>
             <?php } else { ?>
-                <blockquote>No results found for <?php echo $city_name; ?>.</blockquote>
+                <h2>No results found for <?php echo $city_name; ?>.</h2>
             <?php }
             $city_name = null;
             $statement = null;
