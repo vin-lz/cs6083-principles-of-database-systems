@@ -1,14 +1,21 @@
-        table, th, td {
-            border: 1px solid black;
-            text-align: center;
-        }
-        th {
-            background-color: #4da302;
-            color: white;
-        }
-        tr:hover {
-            background-color: #f2f2f2;
-        }
-        input[type=submit]:hover {
-            background-color: #a2c9fc;
-        }
+table, th, td {
+    border: 1px solid black;
+    text-align: center;
+}
+
+th {
+    background-color: #4da302;
+    color: white;
+}
+
+tr:hover {
+    background-color: #f2f2f2;
+}
+
+input[type=submit]:hover {
+    background-color: #a2c9fc;
+}
+
+.error {
+    color: #FF0000;
+}
