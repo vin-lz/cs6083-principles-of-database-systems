@@ -97,8 +97,6 @@
         }
     }
 
-
-
     if (isset($_POST["sid"])) {
 
         require "config.php";
