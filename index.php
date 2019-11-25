@@ -21,13 +21,13 @@
                 GROUP BY sid) AS r
             WHERE s.sid = r.sid AND m.sid = r.sid AND m.mtimestamp = r.recent AND s.scity = :city_name";
             $city_name = $_POST['city-name'];
-            echo $city_name;
-            print_r($_POST);
+            // echo $city_name;
+            // print_r($_POST);
             $statement = $connection->prepare($sql);
             // $statement->bindParam(':city_name', $city_name, PDO::PARAM_STR);
             $statement->execute([':city_name'=>$city_name]);
             $result = $statement->fetchAll();
-            print_r($result);
+            // print_r($result);
             if ($result && $statement->rowCount() > 0) {?>
                 <h2>Results</h2>
                 <table>
