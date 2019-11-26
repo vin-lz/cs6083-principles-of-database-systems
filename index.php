@@ -42,7 +42,7 @@
                 $input_error = "City Name is required";?>
                 <span class="error"><?php echo $input_error;?></span>
                 <?php } else {
-                    if (!preg_match("/^[a-zA-Z ]*$/", $_POST["city-name"])) {
+                    if (!preg_match("/^[a-zA-Z- ]*$/", $_POST["city-name"])) {
                         $input_error = "Only letters and white space allowed";?>
                         <span class="error"><?php echo $input_error; ?></span>
                     <?php } else {
